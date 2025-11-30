@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+  <h2>Pending Collaboration Requests</h2>
+  {% if requests %}
+    <ul class="list-group">
+      {% for r in requests %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ r.requester.username }}</strong> wants to collaborate on <em>{{ r.idea.title }}</em>
+            <div class="small text-muted">{{ r.created_at|date:"SHORT_DATETIME_FORMAT" }}</div>
+            {% if r.message %}<div class="mt-1">{{ r.message }}</div>{% endif %}
+          </div>
+          <div class="btn-group">
+            <a href="{% url 'ideas:collab_request_action' r.pk 'approve' %}" class="btn btn-success btn-sm">Approve</a>
+            <a href="{% url 'ideas:collab_request_action' r.pk 'reject' %}" class="btn btn-danger btn-sm">Reject</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No pending requests.</p>
+  {% endif %}
+{% endblock %}

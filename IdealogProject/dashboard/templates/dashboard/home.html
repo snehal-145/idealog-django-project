@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <div class="row g-4" data-aos="fade-up">
+        <div class="col-12">
+            <div class="hero-card p-4 rounded-4 shadow-sm d-flex justify-content-between align-items-center">
+                <div>
+                    <h1 class="mb-1 hero-title">Welcome to your dashboard, <span class="text-gradient">{{ user.username }}</span>!</h1>
+                    <p class="lead text-muted">Explore ideas, collaborate and submit your best concepts.</p>
+                </div>
+                <div>
+                    <a href="{% url 'ideas:idea_create' %}" class="btn btn-lg btn-primary btn-animated">Add New Idea</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6" data-aos="fade-right">
+            <div class="card action-card shadow-sm rounded-4 p-4">
+                <h3>Ideas</h3>
+                <p class="text-muted">Browse and manage your ideas.</p>
+                <a class="stretched-link" href="{% url 'ideas:idea_list' %}"></a>
+            </div>
+        </div>
+
+        <div class="col-md-6" data-aos="fade-left">
+            <div class="card action-card shadow-sm rounded-4 p-4">
+                <h3>Collaborate</h3>
+                <p class="text-muted">Invite others to work on your ideas.</p>
+                <a class="stretched-link" href="{% url 'ideas:submit_idea' %}"></a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

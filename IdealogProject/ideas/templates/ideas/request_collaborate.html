@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="card p-4 rounded-4 shadow-sm">
+    <h3>Request to collaborate on "{{ idea.title }}"</h3>
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Message (optional)</label>
+        <textarea name="message" class="form-control" rows="4"></textarea>
+      </div>
+      <div class="d-flex gap-2">
+        <button class="btn btn-primary">Send request</button>
+        <a class="btn btn-outline-secondary" href="{% url 'ideas:idea_detail' idea.pk %}">Cancel</a>
+      </div>
+    </form>
+  </div>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load idea_tags %}
+
+{% block content %}
+  <div class="col-md-10 mx-auto">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2>Your Ideas</h2>
+      <a class="btn btn-primary btn-animated" href="{% url 'ideas:idea_create' %}">+ New Idea</a>
+    </div>
+
+    {% if ideas %}
+      <div class="row g-3">
+        {% for idea in ideas %}
+          <div class="col-md-6" data-aos="zoom-in">
+            <div class="card p-3 h-100">
+              <h5><a href="{% url 'ideas:idea_detail' idea.pk %}">{{ idea.title }}</a></h5>
+              <p class="mb-1 text-muted small">By {{ idea.created_by.username }} • {{ idea.created_at|date:"SHORT_DATE_FORMAT" }}</p>
+              <p class="mb-2 text-truncate">{{ idea.description }}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  {% if idea.tags %}
+                    {% for tag in idea.tags|split_tags %}
+                      <span class="badge bg-light text-muted me-1">{{ tag }}</span>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+                <div>
+                  <a class="btn btn-sm btn-outline-primary" href="{% url 'ideas:idea_detail' idea.pk %}">Open</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>You haven't submitted any ideas yet.</p>
+    {% endif %}
+  </div>
+{% endblock %}

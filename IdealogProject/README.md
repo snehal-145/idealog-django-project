@@ -1,0 +1,1 @@
+# idealog-django-project

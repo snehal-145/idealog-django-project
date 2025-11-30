@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card p-4 rounded-3 auth-card" data-aos="fade-up">
+            <h3 class="mb-3">Login</h3>
+            <form method="POST" novalidate>
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                {% endif %}
+                <div class="mb-3">
+                    {{ form.username.label_tag }}
+                    {{ form.username }}
+                    {% for err in form.username.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+                </div>
+                <div class="mb-3">
+                    {{ form.password.label_tag }}
+                    {{ form.password }}
+                    {% for err in form.password.errors %}<div class="text-danger small">{{ err }}</div>{% endfor %}
+                </div>
+                <button class="btn btn-primary w-100 btn-animated" type="submit">Login</button>
+            </form>
+            <div class="mt-3 text-center small">
+                <a href="{% url 'register' %}">Don't have an account? Register</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

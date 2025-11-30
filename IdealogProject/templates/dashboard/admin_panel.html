@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+  <h2 class="mb-4">Admin Panel</h2>
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card p-3 mb-3">
+        <h5>Users</h5>
+        <ul class="list-group list-group-flush">
+          {% for u in users %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              {{ u.username }} <span class="small text-muted">{{ u.email }}</span>
+            </li>
+          {% empty %}
+            <li class="list-group-item">No users found.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3 mb-3">
+        <h5>Ideas</h5>
+        <ul class="list-group list-group-flush">
+          {% for idea in ideas %}
+            <li class="list-group-item">
+              <strong>{{ idea.title }}</strong>
+              <div class="small text-muted">by {{ idea.created_by.username if idea.created_by else '—' }} • {{ idea.created_at }}</div>
+            </li>
+          {% empty %}
+            <li class="list-group-item">No ideas yet.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3 mb-3">
+        <h5>Collaboration Requests</h5>
+        <ul class="list-group list-group-flush">
+          {% for r in collab_requests %}
+            <li class="list-group-item">
+              <div><strong>{{ r.requester.username }}</strong> → <em>{{ r.idea.title }}</em></div>
+              <div class="small text-muted">{{ r.created_at }} • Status: {{ r.status }}</div>
+              <div class="mt-1">{{ r.message|truncatechars:120 }}</div>
+            </li>
+          {% empty %}
+            <li class="list-group-item">No collaboration requests.</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
